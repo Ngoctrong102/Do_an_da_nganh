@@ -2,7 +2,10 @@ import axios from '../configs/axios';
 
 class Vegetable {
     getAll() {
-        return axios.get('/vegatables')
+        return axios.get('/vegetables')
+    }
+    add(vegetable) {
+        return axios.post('/vegetables', { vegetable })
     }
 }
 

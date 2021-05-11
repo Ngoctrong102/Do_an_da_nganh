@@ -7,6 +7,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Menu from "../../components/Setting/menu/Menu";
 import QRScreen from "./QRScreen/QRScreen";
 import Vegetables from "./Vegetables/Vegetables";
+import AddVegeScreen from "./AddVege/AddVege";
 
 var Stack = createStackNavigator();
 
@@ -19,6 +20,10 @@ var data = [
     title: "Danh sách các loại rau",
     route: "Vegetables",
   },
+  {
+    title: "Thêm rau",
+    route: 'AddVege'
+  }
 ];
 
 const Settings = ({ setToken }) => {
@@ -60,6 +65,7 @@ const Settings = ({ setToken }) => {
       </Stack.Screen>
       <Stack.Screen name="QRCode" component={QRScreen} />
       <Stack.Screen name="Vegetables" component={Vegetables} />
+      <Stack.Screen name="AddVege" component={AddVegeScreen} options={{title:"Thêm rau"}}/>
     </Stack.Navigator>
   );
 };

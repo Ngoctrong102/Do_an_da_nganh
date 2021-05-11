@@ -9,6 +9,8 @@ client.on('connect', function() {
     })
 })
 
+client.subscribe('light1')
+client.publish('light1', JSON.stringify(jfodofd))
 
 // setInterval(() => {
 //     client.publish('presence', 'test')

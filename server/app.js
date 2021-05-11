@@ -57,15 +57,15 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', require('./src/routes/user.router'))
-
+app.use('/vegetables', require('./src/routes/vegetable.router'));
 
 
 // console.log(client);
-var client = require('./src/MQTT');
-app.post('/light/:id', (req, res) => {
-    console.log(req.body);
-    client.publish('light', JSON.stringify(req.body))
-})
+// var client = require('./src/MQTT');
+// app.post('/light/:id', (req, res) => {
+//     console.log(req.body);
+//     client.publish('light', JSON.stringify(req.body))
+// })
 
 server.listen(PORT, () => {
     console.log('Listening at port ' + PORT);

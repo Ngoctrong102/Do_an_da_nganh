@@ -30,7 +30,11 @@ client.on("connectionLost", (responseObject) => {
     }
 });
 client.on("messageReceived", (message) => {
-    console.log(message.destinationName + ' : ' + message.payloadString);
+    // console.log(message.destinationName + ' : ' + message.payloadString);
+
+
+
+    // đoạn code cần quan tâm
 
     switch (message.destinationName) {
         case "light":
@@ -40,15 +44,21 @@ client.on("messageReceived", (message) => {
                 break;
             }
     }
+    // đoạn code cần quan tâm
+
 });
 client
     .connect()
     .then(() => {
         // Once a connection has been made, make a subscription and send a message.
-        console.log("onConnect");
-        client.subscribe("presence");
+
+        // đoạn code cần quan tâm
+        client.subscribe("topic presence");
         client.subscribe("hello");
         client.subscribe("light");
+
+        // đoạn code cần quan tâm
+
     })
     .catch((responseObject) => {
         if (responseObject.errorCode !== 0) {

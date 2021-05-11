@@ -6,6 +6,9 @@ client.subscribe('light')
 client.subscribe('motor')
 client.on('message', (topic, payload) => {
     console.log(topic + ':' + payload)
+
+
+
 })
 
 module.exports = client;

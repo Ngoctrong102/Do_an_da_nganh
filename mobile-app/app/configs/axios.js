@@ -3,12 +3,7 @@ import qs from 'query-string';
 var axios = require('axios');
 
 import { API_URL } from '@env';
-// console.log('api', API_URL)
-
-// var _axios = axios.create({
-//   baseURL:API_URL,
-//     paramsSerializer: param => qs.stringify(param)
-// })
+console.log(API_URL);
 axios.defaults.baseURL = API_URL;
 axios.defaults.headers.common['token'] = 'AUTH_TOKEN';
 axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
