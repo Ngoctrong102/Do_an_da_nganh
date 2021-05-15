@@ -32,6 +32,7 @@ module.exports = {
     login: async(req, res) => {
         try {
             var { username, password } = req.body;
+            console.log(req.body)
             var user = await UserService.login(username, password);
             if (user) {
                 var userData = {

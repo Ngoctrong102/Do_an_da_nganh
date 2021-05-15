@@ -2,6 +2,7 @@ const VegetableService = require("../services/Vegetable.Service");
 
 module.exports = {
     add: async(req, res) => {
+        console.log("thông tin nè", req.user)
         var respone = await VegetableService.add(req.body.vegetable);
         res.json(respone);
     },
