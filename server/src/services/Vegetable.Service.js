@@ -2,7 +2,7 @@ const Vegetable = require("../models/Vegetable.Model");
 
 class VegetableService {
     async add(vegetable) {
-        var vege = await Vegetable(vegetable);
+        var vege = new Vegetable(vegetable);
         vege.save();
         return { success: true }
     }
