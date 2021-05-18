@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Button } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Button, Alert, RefreshControl } from "react-native";
 import VegetableService from "../../../services/Vegetable.service";
 import style from "./AddVege.style";
 import styled from "styled-components";
@@ -26,6 +26,31 @@ const AddVegeScreen = ({ navigation }) => {
     from: 0,
     to: 0,
   });
+
+  const handleClear = () => {
+    console.log("Clear Button");
+    return (navigation.goBack());
+  };
+
+  const handleAlert = async () => {
+    if (!name.trim()) {
+      alert('Ban nhap thieu ten rau can them!');
+      return;
+    }
+    else if (!motor.trim()) {
+      alert('Ban nhap thieu may bom nuoc!');
+      return;
+    }
+    
+    Alert.alert(
+      "Thong bao",
+      "Ban da them " + name + " thanh cong!",
+      [
+        { text: "OK", onPress: () => {console.log("OK Pressed"), handleSubmit()} }
+      ]
+    )
+  }
+
   const handleSubmit = async () => {
     try {
       console.log(motor);
@@ -40,6 +65,7 @@ const AddVegeScreen = ({ navigation }) => {
     } catch (error) {
       console.log(error);
     }
+    return (navigation.goBack());
   };
 
   return (
@@ -80,7 +106,6 @@ const AddVegeScreen = ({ navigation }) => {
           <Input
             placeholder="Giờ tưới nước"
             onChangeText={(text) => {
-              console.log("abc", text);
               setMotor(text);
             }}
           />
@@ -129,8 +154,13 @@ const AddVegeScreen = ({ navigation }) => {
         </View>
       </View>
       <View style={style.formGroup}>
-        <Button onPress={handleSubmit} title="Thêm" />
+        <Button
+          onPress={handleAlert}
+          title="Thêm"
+        />
+        
       </View>
+
     </View>
   );
 };
