@@ -3,65 +3,23 @@ import { Button, View, Text } from "react-native";
 import Header from "../../components/Home/Header";
 import SelectBox from "react-native-multi-selectbox";
 import Light from "../../components/light/Light";
-const K_OPTIONS = [
-  {
-    item: "Juventus",
-    id: "JUVE",
-  },
-  {
-    item: "Real Madrid",
-    id: "RM",
-  },
-  {
-    item: "Barcelona",
-    id: "BR",
-  },
-  {
-    item: "PSG",
-    id: "PSG",
-  },
-  {
-    item: "FC Bayern Munich",
-    id: "FBM",
-  },
-  {
-    item: "Manchester United FC",
-    id: "MUN",
-  },
-  {
-    item: "Manchester City FC",
-    id: "MCI",
-  },
-  {
-    item: "Everton FC",
-    id: "EVE",
-  },
-  {
-    item: "Tottenham Hotspur FC",
-    id: "TOT",
-  },
-  {
-    item: "Chelsea FC",
-    id: "CHE",
-  },
-  {
-    item: "Liverpool FC",
-    id: "LIV",
-  },
-  {
-    item: "Arsenal FC",
-    id: "ARS",
-  },
-
-  {
-    item: "Leicester City FC",
-    id: "LEI",
-  },
-];
+import Vegetable from "../../services/Vegetable.service";
 const HomeScreen = ({ navigation, setToken }) => {
   const [selectedTeam, setSelectedTeam] = useState({});
+  const [veges, setVeges] = useState([]);
+  useEffect(() => {
+    (async function getVege() {
+      var veges = await Vegetable.getAll();
+      setVeges((prev) => [...veges]);
+    })();
+  }, []);
 
-  useEffect(() => {}, []);
+  const handleChange = (selection) => {
+    setSelectedTeam(selection);
+    // guiwr thay đổi rau cho server
+    // hiển thị ra thông tin rau ở dưới
+    console.log(selection);
+  };
   return (
     <View>
       <Header />
@@ -69,12 +27,11 @@ const HomeScreen = ({ navigation, setToken }) => {
         <SelectBox
           label="Rau đang trồng"
           inputPlaceholder="Tìm loại rau"
-          options={K_OPTIONS}
+          options={veges.map((v) => {
+            return { item: v.name, id: v._id };
+          })}
           value={selectedTeam}
-          onChange={(selection) => {
-            setSelectedTeam(selection);
-            console.log(selection);
-          }}
+          onChange={handleChange}
           containerStyle={{
             borderRadius: 5,
             borderWidth: 1,
@@ -108,19 +65,11 @@ const HomeScreen = ({ navigation, setToken }) => {
           optionsLabelStyle={{ fontSize: 12 }}
         />
 
-        <Button
-          title="Bật đèn 1"
-          onPress={() => {
-            console.log("turn on ligth 1");
-            fetch("http://192.168.43.187:8888/light", {
-              method: "post",
-              headers: {
-                "Content-Type": "application/json;charset=utf-8",
-              },
-              body: JSON.stringify({ id: 1, on: true }),
-            });
-          }}
-        />
+        <View>
+          <Text>
+            {JSON.stringify(veges.filter((v) => v._id === selectedTeam.id))}
+          </Text>
+        </View>
         <Light />
       </View>
     </View>

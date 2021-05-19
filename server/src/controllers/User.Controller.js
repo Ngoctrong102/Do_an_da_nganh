@@ -76,5 +76,13 @@ module.exports = {
         } catch (err) {
             res.json({ status: "Error", message: "Invalid token!" })
         }
+    },
+    addQR: async(req, res) => {
+        try {
+            var respone = await UserService.addQR(req.user._id, req.body.QR);
+            res.json(respone);
+        } catch (err) {
+            console.log(err)
+        }
     }
 }

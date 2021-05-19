@@ -14,6 +14,7 @@ router.post('/login', UserController.login);
 
 router.post('/signup', UserController.signUp);
 
+router.post('/addQR', UserController.addQR);
 // router.post('/profile/update', checkAuth, upload.single('avatar'), UserController.updateProfile);
 
 module.exports = router;

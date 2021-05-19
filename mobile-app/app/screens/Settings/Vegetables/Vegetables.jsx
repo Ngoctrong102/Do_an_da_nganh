@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import Vegetable from "../../../services/Vegetable.service";
-import { Row, Separator } from "../../../components/Row";
-import { createStackNavigator } from "@react-navigation/stack";
-import EachVege from "./EachVege";
-
-
-
+import Row from "../../../components/Row";
 
 const Vegetables = ({ navigation }) => {
   var [vegetables, setVegetables] = useState([]);
@@ -20,10 +15,6 @@ const Vegetables = ({ navigation }) => {
     console.log({ vegetables });
   }, []);
 
-  const abc = () => {
-    return navigation.navigate("EachVege");
-  }
-
   return (
     <FlatList
       data={vegetables}
@@ -33,14 +24,10 @@ const Vegetables = ({ navigation }) => {
         return (
           <Row
             title={name}
-            onPress={() => navigation.navigate("l")}
+            onPress={() => navigation.navigate("Vegetables-detail", { item })}
           />
         );
       }}
-      ItemSeparatorComponent={Separator}
-      ListHeaderComponent={() => <Separator />}
-      ListFooterComponent={() => <Separator />}
-      contentContainerStyle={{ paddingVertical: 20 }}
     />
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import User from "../../../services/User.service";
 
 export default function App() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -13,9 +14,13 @@ export default function App() {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
+
+    console.log(data);
+    var respone = await User.addQR(data);
     alert(`QR code có nội dung: ${data}`);
+    console.log(respone);
   };
 
   if (hasPermission === null) {

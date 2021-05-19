@@ -8,6 +8,7 @@ import Menu from "../../components/Setting/menu/Menu";
 import QRScreen from "./QRScreen/QRScreen";
 import Vegetables from "./Vegetables/Vegetables";
 import AddVegeScreen from "./AddVege/AddVege";
+import EachVege from "./Vegetables/EachVege";
 
 var Stack = createStackNavigator();
 
@@ -22,8 +23,8 @@ var data = [
   },
   {
     title: "Thêm rau",
-    route: 'AddVege'
-  }
+    route: "AddVege",
+  },
 ];
 
 const Settings = ({ setToken }) => {
@@ -65,7 +66,12 @@ const Settings = ({ setToken }) => {
       </Stack.Screen>
       <Stack.Screen name="QRCode" component={QRScreen} />
       <Stack.Screen name="Vegetables" component={Vegetables} />
-      <Stack.Screen name="AddVege" component={AddVegeScreen} options={{title:"Thêm rau"}}/>
+      <Stack.Screen
+        name="AddVege"
+        component={AddVegeScreen}
+        options={{ title: "Thêm rau" }}
+      />
+      <Stack.Screen name="Vegetables-detail" component={EachVege} />
     </Stack.Navigator>
   );
 };
