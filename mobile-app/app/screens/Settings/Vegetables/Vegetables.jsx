@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { View, Text, FlatList } from "react-native";
-import Vegetable from "../../../services/Vegetable.service";
+import { connect } from "react-redux";
 import Row from "../../../components/Row";
 
-const Vegetables = ({ navigation }) => {
-  var [vegetables, setVegetables] = useState([]);
+import { getVeges } from "../../../store/actions/vegetables";
 
+const Vegetables = ({ navigation, vegetables, getVeges }) => {
   useEffect(() => {
-    async function getVege() {
-      var veges = await Vegetable.getAll();
-      setVegetables((prev) => [...veges]);
+    if (vegetables.length == 0) {
+      getVeges();
     }
-    getVege();
-    console.log({ vegetables });
   }, []);
 
   return (
     <FlatList
       data={vegetables}
-      keyExtractor={(item, index) => index}
+      keyExtractor={(item, index) => index.toString()}
       renderItem={({ item }) => {
         const name = item.name;
         return (
@@ -31,5 +28,16 @@ const Vegetables = ({ navigation }) => {
     />
   );
 };
-
-export default Vegetables;
+function mapStateToProp(state) {
+  return {
+    vegetables: state.veges.veges,
+  };
+}
+function mapDispatcherToProp(dispatch) {
+  return {
+    getVeges: () => {
+      dispatch(getVeges());
+    },
+  };
+}
+export default connect(mapStateToProp, mapDispatcherToProp)(Vegetables);

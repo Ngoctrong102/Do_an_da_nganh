@@ -9,5 +9,13 @@ module.exports = {
     getAll: async(req, res) => {
         var vegetables = await VegetableService.getAll(req.user._id);
         res.json(vegetables);
+    },
+    delete: async(req, res) => {
+        var respone = await VegetableService.delete(req.params._id, req.user._id);
+        res.json(respone);
+    },
+    update: async(req, res) => {
+        var respone = await VegetableService.update(req.params._id, req.body.vege);
+        res.json(respone);
     }
 }

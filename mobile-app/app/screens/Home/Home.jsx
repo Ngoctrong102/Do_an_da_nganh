@@ -3,15 +3,14 @@ import { Button, View, Text } from "react-native";
 import Header from "../../components/Home/Header";
 import SelectBox from "react-native-multi-selectbox";
 import Light from "../../components/light/Light";
-import Vegetable from "../../services/Vegetable.service";
-const HomeScreen = ({ navigation, setToken }) => {
+import { connect } from "react-redux";
+import { getVeges } from "../../store/actions/vegetables";
+const HomeScreen = ({ navigation, setToken, veges, getVeges }) => {
   const [selectedTeam, setSelectedTeam] = useState({});
-  const [veges, setVeges] = useState([]);
   useEffect(() => {
-    (async function getVege() {
-      var veges = await Vegetable.getAll();
-      setVeges((prev) => [...veges]);
-    })();
+    if (veges.length == 0) {
+      getVeges();
+    }
   }, []);
 
   const handleChange = (selection) => {
@@ -76,4 +75,16 @@ const HomeScreen = ({ navigation, setToken }) => {
   );
 };
 
-export default HomeScreen;
+function mapStateToProp(state) {
+  return {
+    veges: state.veges.veges,
+  };
+}
+function mapDispatcherToProp(dispatch) {
+  return {
+    getVeges: () => {
+      dispatch(getVeges());
+    },
+  };
+}
+export default connect(mapStateToProp, mapDispatcherToProp)(HomeScreen);

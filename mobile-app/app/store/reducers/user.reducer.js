@@ -1,7 +1,9 @@
 var initState = {
-    _id: null,
-    username: null,
-    password: null
+    _id: '',
+    username: '',
+    avatar: '',
+    codeMicrobit: '',
+
 }
 
 const userReducer = (state = initState, action) => {

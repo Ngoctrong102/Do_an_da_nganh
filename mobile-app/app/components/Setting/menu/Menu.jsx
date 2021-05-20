@@ -27,7 +27,7 @@ const Menu = ({ navigation, data }) => {
         <FlatList
           data={data}
           renderItem={renderItem}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
         />
       </View>
     </SafeAreaView>

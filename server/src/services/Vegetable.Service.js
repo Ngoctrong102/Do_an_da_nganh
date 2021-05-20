@@ -7,14 +7,21 @@ class VegetableService {
         vege.save();
         var r = await User.updateOne({ _id: vegetable.owner }, { $push: { veges: vege._id } })
         console.log('keets quar', r);
-        return { success: true }
+        return vege;
 
     }
     async getAll(userId) {
         var vegetables = await Vegetable.find({ owner: userId });
         return vegetables;
     }
-
+    async delete(_id, owner) {
+        var res = await Vegetable.deleteOne({ _id, owner })
+        return res;
+    }
+    async update(_id, vege) {
+        var res = await Vegetable.updateOne({ _id }, vege);
+        return res;
+    }
 }
 
 

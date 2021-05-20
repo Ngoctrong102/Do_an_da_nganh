@@ -7,8 +7,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Menu from "../../components/Setting/menu/Menu";
 import QRScreen from "./QRScreen/QRScreen";
 import Vegetables from "./Vegetables/Vegetables";
-import AddVegeScreen from "./AddVege/AddVege";
-import EachVege from "./Vegetables/EachVege";
+import AddVegeScreen from "./Vegetables/AddVege/AddVege";
+import EachVege from "./Vegetables/Detail/VegeDetail";
+import UpdateVege from "./Vegetables/UpdateVege/UpdateVege";
 
 var Stack = createStackNavigator();
 
@@ -71,7 +72,16 @@ const Settings = ({ setToken }) => {
         component={AddVegeScreen}
         options={{ title: "Thêm rau" }}
       />
-      <Stack.Screen name="Vegetables-detail" component={EachVege} />
+      <Stack.Screen
+        name="Vegetables-detail"
+        component={EachVege}
+        options={({ route }) => ({ title: route.params.item.name })}
+      />
+      <Stack.Screen
+        name="Vegetables-update"
+        component={UpdateVege}
+        options={({ route }) => ({ title: route.params.vege.name })}
+      />
     </Stack.Navigator>
   );
 };
