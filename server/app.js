@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 
 app.use('/user', require('./src/routes/user.router'))
 app.use('/vegetables', require('./src/routes/vegetable.router'));
-
+app.use('/controller', require('./src/routes/controller.router'))
 
 // console.log(client);
 // var client = require('./src/MQTT');

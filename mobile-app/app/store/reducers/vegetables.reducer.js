@@ -1,6 +1,6 @@
 var initState = {
     veges: [],
-    current: null,
+    current: '',
 }
 
 const vegetablesReducer = (state = initState, action) => {
@@ -45,6 +45,13 @@ const vegetablesReducer = (state = initState, action) => {
                 return {
                     ...state,
                     veges: newVeges
+                }
+            }
+        case "CHANGE_CURRENT":
+            {
+                return {
+                    ...state,
+                    current: action.payload.id
                 }
             }
         default:

@@ -7,6 +7,8 @@ import {
   SafeAreaView,
 } from "react-native";
 
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+
 const Menu = ({ navigation, data }) => {
   const renderItem = ({ item }) => {
     return (
@@ -16,7 +18,15 @@ const Menu = ({ navigation, data }) => {
           navigation.navigate(item.route);
         }}
       >
-        <Text>{item.title}</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <FontAwesomeIcon
+            icon={item.icon}
+            size={25}
+            style={{ marginRight: 10 }}
+            color="#00A7E1"
+          />
+          <Text style={{ fontSize: 18 }}>{item.title}</Text>
+        </View>
       </TouchableOpacity>
     );
   };

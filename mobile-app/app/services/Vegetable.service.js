@@ -13,6 +13,9 @@ class Vegetable {
     update(_id, vege) {
         return axios.put(`/vegetables/${_id}`, { vege })
     }
+    changeCurrent(id) {
+        return axios.post('/vegetables/change', { id })
+    }
 }
 
 export default new Vegetable();

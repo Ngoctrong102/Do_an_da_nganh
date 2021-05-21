@@ -1,22 +1,30 @@
 var mqtt = require('mqtt')
-var client = mqtt.connect('ws://192.168.0.103:9000/')
+var client = mqtt.connect('ws://192.168.0.102:9000/')
 
 client.on('connect', function() {
-    client.subscribe('presence', function(err) {
-        if (!err) {
-            client.publish('presence', 'Hello mqtt')
-        }
-    })
+    console.log('connected');
+    client.subscribe('light', function(err) {
+            if (err) {
+                console.log(err);
+            }
+        })
+        // setInterval(() => {
+        //     client.publish('light', JSON.stringify({ code: 'hello', on: true }))
+        // }, 3000)
 })
-
-client.subscribe('light1')
-client.publish('light1', JSON.stringify(jfodofd))
-
-// setInterval(() => {
-//     client.publish('presence', 'test')
-// }, 1000)
+var code = "hello";
 client.on('message', function(topic, message) {
     // message is Buffer
-    console.log(topic + ' : ' + message.toString())
-        // client.end()
+    var data = JSON.parse(message);
+    // console.log(data)
+    if (code == data.code) {
+        switch (topic) {
+            case 'light':
+                {
+                    console.log(topic + ' : ' + message.toString())
+                    break;
+                }
+        }
+    }
+
 })

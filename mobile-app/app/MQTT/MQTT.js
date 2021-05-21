@@ -3,6 +3,7 @@ import { controlLight } from '../store/actions/light'
 import store from '../store';
 
 
+import { MQTT_URL } from '@env';
 //Set up an in-memory alternative to global localStorage
 
 const myStorage = {
@@ -19,7 +20,7 @@ const myStorage = {
 
 
 const client = new Client({
-    uri: "ws://192.168.43.187:9000/",
+    uri: MQTT_URL,
     clientId: "clientId",
     storage: myStorage,
 });
@@ -36,13 +37,18 @@ client.on("messageReceived", (message) => {
 
     // đoạn code cần quan tâm
 
-    switch (message.destinationName) {
-        case "light":
-            {
-                var { id, on } = JSON.parse(message.payloadString)
-                store.dispatch(controlLight(on))
-                break;
-            }
+    var data = JSON.parse(message.payloadString)
+    var { user } = store.getState().user;
+    console.log(data.code, user.codeMicrobit)
+    if (data.code == user.codeMicrobit) {
+        switch (message.destinationName) {
+            case "light":
+                {
+                    console.log(message.payloadString)
+                    store.dispatch(controlLight(data.on))
+                    break;
+                }
+        }
     }
     // đoạn code cần quan tâm
 

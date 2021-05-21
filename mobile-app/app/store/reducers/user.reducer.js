@@ -12,6 +12,10 @@ const userReducer = (state = initState, action) => {
             {
                 return {...action.payload }
             }
+        case 'FETCH_INFOR':
+            {
+                return {...action.payload.user }
+            }
         default:
             return state
     }

@@ -11,20 +11,26 @@ import AddVegeScreen from "./Vegetables/AddVege/AddVege";
 import EachVege from "./Vegetables/Detail/VegeDetail";
 import UpdateVege from "./Vegetables/UpdateVege/UpdateVege";
 
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faQrcode, faListUl, faPlus } from "@fortawesome/free-solid-svg-icons";
+
 var Stack = createStackNavigator();
 
 var data = [
   {
     title: "Nhập code",
     route: "QRCode",
+    icon: faQrcode,
   },
   {
     title: "Danh sách các loại rau",
     route: "Vegetables",
+    icon: faListUl,
   },
   {
     title: "Thêm rau",
     route: "AddVege",
+    icon: faPlus,
   },
 ];
 
@@ -50,7 +56,7 @@ const Settings = ({ setToken }) => {
         {({ navigation }) => (
           <View>
             <Header />
-            <View>
+            <View style={{ padding: 5 }}>
               <Menu data={data} navigation={navigation} />
               <TouchableOpacity
                 style={{ padding: 10 }}

@@ -12,6 +12,9 @@ class UserService {
     addQR(QR) {
         return axios.post('/user/addQR', { QR }).catch(err => console.log(err));
     }
+    fetchInfor() {
+        return axios.post('/user/fetchInfor');
+    }
 }
 
 export default new UserService();

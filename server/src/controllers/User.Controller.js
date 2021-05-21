@@ -54,25 +54,9 @@ module.exports = {
     },
     fetchInfor: async(req, res) => {
         try {
-            var userData = jwt.decode(req.body.token, SECRET_CODE);
-            var user = await UserService.fetchInfor(userData);
-
-            if (user) {
-                var userData = {
-                    _id: user._id,
-                    username: user.username,
-                    avatar: user.avatar,
-                    codeMicrobit: user.codeMicrobit
-                };
-                return res.json({
-                    user: userData
-                })
-            } else {
-                return res.json({
-                    status: "Error",
-                    message: "User is not exist"
-                })
-            }
+            return res.json({
+                user: req.user
+            })
         } catch (err) {
             res.json({ status: "Error", message: "Invalid token!" })
         }
