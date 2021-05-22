@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var GardentSchema = new mongoose.Schema({
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     code: { type: String, required: true },
+    current: { type: mongoose.Schema.Types.ObjectId, ref: 'Vegetable' },
     light: {
         type: {
             on: Boolean,
@@ -12,7 +13,10 @@ var GardentSchema = new mongoose.Schema({
         required: true
     },
     motor: {
-        type: [Number],
+        type: {
+            on: Boolean,
+            time: [Number]
+        },
         required: true
     },
     temp: {
