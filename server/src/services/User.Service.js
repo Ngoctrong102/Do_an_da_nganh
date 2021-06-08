@@ -12,8 +12,8 @@ class UserService {
         if (user && checkPassword(password, user.password)) return user;
         else return null;
     }
-    async fetchInfor(userData) {
-        var user = await User.findOne({ _id: userData._id })
+    async fetchInfor(userID) {
+        var user = await User.findOne({ _id: userID })
         if (user) return user;
         else return null;
     }

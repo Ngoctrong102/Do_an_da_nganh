@@ -8,14 +8,30 @@ import { getVeges, changeCurrent } from "../../store/actions/vegetables";
 import Motor from "../../components/Home/Motor/Motor";
 import Temp from "../../components/Home/Temp/Temp";
 import Humidity from "../../components/Home/Humidity/Humidity";
-const HomeScreen = ({ navigation, setToken, veges, getVeges, current }) => {
+
+const HomeScreen = ({
+  navigation,
+  setToken,
+  veges,
+  getVeges,
+  current,
+  changeCurrent,
+}) => {
+  var options = veges.map((v) => {
+    return { item: v.name, id: v._id };
+  });
+
   const [selectedTeam, setSelectedTeam] = useState({});
   useEffect(() => {
     if (veges.length == 0) {
       getVeges();
     }
   }, []);
-
+  useEffect(() => {
+    var c = options.find((o) => o.id == current) || {};
+    console.log(c);
+    setSelectedTeam(c);
+  }, [current]);
   const handleChange = (selection) => {
     setSelectedTeam(selection);
     changeCurrent(selection.id);
@@ -31,9 +47,7 @@ const HomeScreen = ({ navigation, setToken, veges, getVeges, current }) => {
           <SelectBox
             label=""
             inputPlaceholder="Tìm loại rau"
-            options={veges.map((v) => {
-              return { item: v.name, id: v._id };
-            })}
+            options={options}
             value={selectedTeam}
             onChange={handleChange}
             containerStyle={{

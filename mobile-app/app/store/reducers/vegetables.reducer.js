@@ -28,8 +28,15 @@ const vegetablesReducer = (state = initState, action) => {
         case "LOGIN":
             {
                 return {
-                    veges: action.payload.veges,
+                    // veges: action.payload.veges,
                     current: action.payload.current
+                }
+            }
+        case 'FETCH_INFOR':
+            {
+                return {
+                    ...state,
+                    current: action.payload.user.current
                 }
             }
         case "UPDATE_VEGE":

@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client = mqtt.connect('ws://192.168.0.102:9000/')
+var client = mqtt.connect('ws://localhost:9000/')
 
 client.on('connect', function() {
     console.log('connected');
@@ -12,7 +12,7 @@ client.on('connect', function() {
         //     client.publish('light', JSON.stringify({ code: 'hello', on: true }))
         // }, 3000)
 })
-var code = "hello";
+var code = "";
 client.on('message', function(topic, message) {
     // message is Buffer
     var data = JSON.parse(message);
@@ -21,7 +21,7 @@ client.on('message', function(topic, message) {
         switch (topic) {
             case 'light':
                 {
-                    console.log(topic + ' : ' + message.toString())
+                    console.log(topic + ' : ' + message.toString());
                     break;
                 }
         }

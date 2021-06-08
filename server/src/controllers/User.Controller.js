@@ -39,7 +39,8 @@ module.exports = {
                     _id: user._id,
                     username: user.username,
                     avatar: user.avatar,
-                    codeMicrobit: user.codeMicrobit
+                    codeMicrobit: user.codeMicrobit,
+                    current: user.current
                 };
                 return res.json({
                     user: userData,
@@ -54,9 +55,19 @@ module.exports = {
     },
     fetchInfor: async(req, res) => {
         try {
-            return res.json({
-                user: req.user
-            })
+            var user = await UserService.fetchInfor(req.user._id);
+            if (user) {
+                var userData = {
+                    _id: user._id,
+                    username: user.username,
+                    avatar: user.avatar,
+                    codeMicrobit: user.codeMicrobit,
+                    current: user.current
+                };
+                return res.json(userData)
+            } else {
+                res.json({ status: "Error", message: "Invalid token!" });
+            }
         } catch (err) {
             res.json({ status: "Error", message: "Invalid token!" })
         }
