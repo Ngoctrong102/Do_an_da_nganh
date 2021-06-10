@@ -1,32 +1,13 @@
 var mongoose = require('mongoose');
 
 var GardentSchema = new mongoose.Schema({
-    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     code: { type: String, required: true },
     current: { type: mongoose.Schema.Types.ObjectId, ref: 'Vegetable' },
-    light: {
-        type: {
-            on: Boolean,
-            from: Number,
-            to: Number
-        },
-        required: true
-    },
-    motor: {
-        type: {
-            on: Boolean,
-            time: [Number]
-        },
-        required: true
-    },
-    temp: {
-        type: Number,
-        required: true
-    },
-    humidity: {
-        type: Number,
-        required: true
-    }
+    light: Boolean,
+    motor: Boolean,
+    temp: { type: Number, default: 0 },
+    humidity: { type: Number, default: 0 }
 })
 
 

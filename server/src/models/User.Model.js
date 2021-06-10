@@ -6,7 +6,7 @@ var UserSchema = new mongoose.Schema({
     avatar: { type: String, default: 'avt-default.jpg' },
     codeMicrobit: { type: String, default: '' },
     veges: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Vegetable' }],
-    current: { type: mongoose.Schema.Types.ObjectId, ref: 'Vegetable' },
+    // current: { type: mongoose.Schema.Types.ObjectId, ref: 'Vegetable' },
     gardent: { type: mongoose.Schema.Types.ObjectId, ref: 'Gardent' }
 })
 

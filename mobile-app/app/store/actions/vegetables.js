@@ -9,15 +9,7 @@ export const getVeges = () => async dispatch => {
         }
     })
 }
-export const changeCurrent = id => async dispatch => {
-    var respone = await Vegetable.changeCurrent(id);
-    dispatch({
-        type: "CHANGE_CURRENT",
-        payload: {
-            id
-        }
-    })
-}
+
 
 export const deleteVege = (vegeID) => {
     return {

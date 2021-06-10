@@ -1,19 +1,24 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faTint } from "@fortawesome/free-solid-svg-icons";
+import GardentService from "../../../services/Gardent.Service";
 
 const Motor = ({ on }) => {
   return (
-    <View
+    <TouchableOpacity
       style={{
         borderRadius: 10,
-        backgroundColor: "#00A7E1",
+        backgroundColor: on ? "#00A7E1" : "#d6d6d6",
         padding: 15,
         flex: 1,
         marginLeft: 5,
+      }}
+      activeOpacity={0.3}
+      onPress={async () => {
+        await GardentService.toggleMotor(!on);
       }}
     >
       {/* <Text>{on ? "Sáng" : "tắt"}</Text> */}
@@ -23,14 +28,14 @@ const Motor = ({ on }) => {
         color="white"
         style={{ alignSelf: "center" }}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
 
-function mapStateToProp(state) {
-  return {
-    on: state.light.on,
-  };
-}
+// function mapStateToProp(state) {
+//   return {
+//     on: state.light.on,
+//   };
+// }
 
-export default connect(mapStateToProp, null)(Motor);
+export default Motor;

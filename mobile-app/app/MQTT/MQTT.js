@@ -1,5 +1,5 @@
 import { Client, Message } from "react-native-paho-mqtt";
-import { controlLight } from '../store/actions/light'
+import { controlGardent } from '../store/actions/gardent'
 import store from '../store';
 
 
@@ -38,14 +38,31 @@ client.on("messageReceived", (message) => {
     // đoạn code cần quan tâm
 
     var data = JSON.parse(message.payloadString)
-    var { user } = store.getState().user;
-    console.log(data.code, user.codeMicrobit)
+    var user = store.getState().user;
     if (data.code == user.codeMicrobit) {
         switch (message.destinationName) {
             case "light":
                 {
-                    console.log(message.payloadString)
-                    store.dispatch(controlLight(data.on))
+                    // console.log(message.payloadString)
+                    store.dispatch(controlGardent({ light: data.on }))
+                    break;
+                }
+            case "motor":
+                {
+                    // console.log(message.payloadString)
+                    store.dispatch(controlGardent({ motor: data.on }))
+                    break;
+                }
+            case "temp":
+                {
+                    // console.log(message.payloadString)
+                    store.dispatch(controlGardent({ temp: data.temp }))
+                    break;
+                }
+            case "humidity":
+                {
+                    // console.log(message.payloadString)
+                    store.dispatch(controlGardent({ humidity: data.humidity }))
                     break;
                 }
         }
@@ -57,12 +74,15 @@ client
     .connect()
     .then(() => {
         // Once a connection has been made, make a subscription and send a message.
-
+        console.log("Connected broker");
         // đoạn code cần quan tâm
-        client.subscribe("topic presence");
-        client.subscribe("hello");
+        // client.subscribe("topic presence");
+        // client.subscribe("hello");
         client.subscribe("light");
+        client.subscribe("motor");
 
+        client.subscribe("temp");
+        client.subscribe("humidity");
         // đoạn code cần quan tâm
 
     })

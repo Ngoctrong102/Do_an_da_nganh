@@ -4,10 +4,12 @@ import Header from "../../components/Home/Header";
 import SelectBox from "react-native-multi-selectbox";
 import Light from "../../components/Home/light/Light";
 import { connect } from "react-redux";
-import { getVeges, changeCurrent } from "../../store/actions/vegetables";
+import { getVeges } from "../../store/actions/vegetables";
+import { changeVege } from "../../store/actions/gardent";
 import Motor from "../../components/Home/Motor/Motor";
 import Temp from "../../components/Home/Temp/Temp";
 import Humidity from "../../components/Home/Humidity/Humidity";
+import { getGardentInfo } from "../../store/actions/gardent";
 
 const HomeScreen = ({
   navigation,
@@ -15,8 +17,11 @@ const HomeScreen = ({
   veges,
   getVeges,
   current,
-  changeCurrent,
+  changeVege,
+  getGardentInfo,
+  gardent,
 }) => {
+  console.log(gardent);
   var options = veges.map((v) => {
     return { item: v.name, id: v._id };
   });
@@ -26,6 +31,7 @@ const HomeScreen = ({
     if (veges.length == 0) {
       getVeges();
     }
+    getGardentInfo();
   }, []);
   useEffect(() => {
     var c = options.find((o) => o.id == current) || {};
@@ -34,13 +40,11 @@ const HomeScreen = ({
   }, [current]);
   const handleChange = (selection) => {
     setSelectedTeam(selection);
-    changeCurrent(selection.id);
-    // guiwr thay đổi rau cho server
-    // hiển thị ra thông tin rau ở dưới
+    changeVege(selection.id);
     console.log(selection);
   };
   return (
-    <ScrollView>
+    <ScrollView nestedScrollEnabled={true}>
       <View style={{ flex: 1 }}>
         <Header />
         <View paddingHorizontal={10}>
@@ -93,18 +97,13 @@ const HomeScreen = ({
             />
           </View>
           <View style={{ flexDirection: "row", marginVertical: 5 }}>
-            <Light />
-            <Motor />
+            <Light on={gardent.light} />
+            <Motor on={gardent.motor} />
           </View>
           <View style={{ flexDirection: "row", marginVertical: 5 }}>
-            <Temp />
-            <Humidity />
+            <Temp temp={gardent.temp} />
+            <Humidity humidity={gardent.humidity} />
           </View>
-          {/* <View>
-            <Text>
-              {JSON.stringify(veges.filter((v) => v._id === selectedTeam.id))}
-            </Text>
-          </View> */}
         </View>
       </View>
     </ScrollView>
@@ -114,7 +113,8 @@ const HomeScreen = ({
 function mapStateToProp(state) {
   return {
     veges: state.veges.veges,
-    current: state.veges.current,
+    current: state.gardent.current,
+    gardent: state.gardent,
   };
 }
 function mapDispatcherToProp(dispatch) {
@@ -122,8 +122,11 @@ function mapDispatcherToProp(dispatch) {
     getVeges: () => {
       dispatch(getVeges());
     },
-    changeCurrent: (id) => {
-      dispatch(changeCurrent(id));
+    changeVege: (id) => {
+      dispatch(changeVege(id));
+    },
+    getGardentInfo: () => {
+      dispatch(getGardentInfo());
     },
   };
 }

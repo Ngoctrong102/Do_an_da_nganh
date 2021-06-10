@@ -22,12 +22,7 @@ class VegetableService {
         var res = await Vegetable.updateOne({ _id }, vege);
         return res;
     }
-    async changeCurrent(userID, vegeID) {
-        var res = await User.updateOne({ _id: userID }, { current: vegeID })
-        console.log(vegeID);
-        var vege = await Vegetable.findOne({ _id: vegeID });
-        return vege;
-    }
+
 }
 
 

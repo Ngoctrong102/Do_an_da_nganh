@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faTemperatureHigh } from "@fortawesome/free-solid-svg-icons";
 
-const Temp = ({ on }) => {
+const Temp = ({ temp }) => {
   return (
     <View
       style={{
@@ -22,15 +22,9 @@ const Temp = ({ on }) => {
       }}
     >
       <FontAwesomeIcon icon={faTemperatureHigh} size={50} color="#00A7E1" />
-      <Text style={{ fontSize: 30, color: "#00A7E1" }}>37°C</Text>
+      <Text style={{ fontSize: 30, color: "#00A7E1" }}>{temp}°C</Text>
     </View>
   );
 };
 
-function mapStateToProp(state) {
-  return {
-    on: state.light.on,
-  };
-}
-
-export default connect(mapStateToProp, null)(Temp);
+export default Temp;

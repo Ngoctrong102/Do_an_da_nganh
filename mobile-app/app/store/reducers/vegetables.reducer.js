@@ -1,6 +1,6 @@
 var initState = {
     veges: [],
-    current: '',
+    // current: '',
 }
 
 const vegetablesReducer = (state = initState, action) => {
@@ -25,20 +25,6 @@ const vegetablesReducer = (state = initState, action) => {
                 }
 
             }
-        case "LOGIN":
-            {
-                return {
-                    // veges: action.payload.veges,
-                    current: action.payload.current
-                }
-            }
-        case 'FETCH_INFOR':
-            {
-                return {
-                    ...state,
-                    current: action.payload.user.current
-                }
-            }
         case "UPDATE_VEGE":
             {
                 var newVeges = [...state.veges].map(v => {
@@ -52,13 +38,6 @@ const vegetablesReducer = (state = initState, action) => {
                 return {
                     ...state,
                     veges: newVeges
-                }
-            }
-        case "CHANGE_CURRENT":
-            {
-                return {
-                    ...state,
-                    current: action.payload.id
                 }
             }
         default:

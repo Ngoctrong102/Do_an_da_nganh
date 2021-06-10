@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
-import ControllerService from "../../../services/Controller.service";
+import GardentService from "../../../services/Gardent.Service";
 
 const Light = ({ on }) => {
   return (
@@ -18,7 +18,7 @@ const Light = ({ on }) => {
       }}
       activeOpacity={0.3}
       onPress={async () => {
-        await ControllerService.toggleLight(!on);
+        await GardentService.toggleLight(!on);
       }}
     >
       <FontAwesomeIcon
@@ -31,10 +31,10 @@ const Light = ({ on }) => {
   );
 };
 
-function mapStateToProp(state) {
-  return {
-    on: state.light.on,
-  };
-}
+// function mapStateToProp(state) {
+//   return {
+//     on: state.light.on,
+//   };
+// }
 
-export default connect(mapStateToProp, null)(Light);
+export default Light;

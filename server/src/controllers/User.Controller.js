@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const GardentService = require('../services/Gardent.Service');
 
 const UserService = require('../services/User.Service');
 
@@ -74,7 +75,8 @@ module.exports = {
     },
     addQR: async(req, res) => {
         try {
-            var respone = await UserService.addQR(req.user._id, req.body.QR);
+            var newGardent = await GardentService.newGardent(req.user._id, req.body.QR);
+            var respone = await UserService.addQR(req.user._id, req.body.QR, newGardent._id);
             res.json(respone);
         } catch (err) {
             console.log(err)

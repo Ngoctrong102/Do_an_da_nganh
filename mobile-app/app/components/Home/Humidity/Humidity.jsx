@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faWater } from "@fortawesome/free-solid-svg-icons";
 
-const Humidity = ({ on }) => {
+const Humidity = ({ humidity }) => {
   return (
     <View
       style={{
@@ -22,15 +22,9 @@ const Humidity = ({ on }) => {
       }}
     >
       <FontAwesomeIcon icon={faWater} size={50} color="#FFA630" />
-      <Text style={{ fontSize: 30, color: "#FFA630" }}>37%</Text>
+      <Text style={{ fontSize: 30, color: "#FFA630" }}>{humidity}%</Text>
     </View>
   );
 };
 
-function mapStateToProp(state) {
-  return {
-    on: state.light.on,
-  };
-}
-
-export default connect(mapStateToProp, null)(Humidity);
+export default Humidity;
