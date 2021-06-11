@@ -13,3 +13,12 @@ export const fetchUser = token => async dispatch => {
         console.log(err)
     }
 }
+
+export const updateQRCode = codeMicrobit => {
+    return {
+        type: 'UPDATE_QR_CODE',
+        payload: {
+            codeMicrobit
+        }
+    }
+}

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, Alert } from "react-native";
+import { connect } from "react-redux";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import User from "../../../services/User.service";
+import { updateQRCode } from "../../../store/actions/user";
 
-export default function QRScreen({ navigation, route, setToken }) {
+function QRScreen({ navigation, route, setToken, updateQRCode }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -20,8 +22,10 @@ export default function QRScreen({ navigation, route, setToken }) {
 
     var respone = await User.addQR(data);
     if (respone.status == 1) {
+      updateQRCode(data);
       await AsyncStorage.setItem("token", respone.token);
       setToken(respone.token);
+
       Alert.alert(
         "Thành công",
         "Thêm vườn rau thành công",
@@ -66,3 +70,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+function mapDispatcherToProp(dispatch) {
+  return {
+    updateQRCode: (code) => dispatch(updateQRCode(code)),
+  };
+}
+export default connect(null, mapDispatcherToProp)(QRScreen);

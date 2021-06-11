@@ -13,7 +13,7 @@ const vegetablesReducer = (state = initState, action) => {
             {
                 return {
                     ...state,
-                    veges: state.veges.filter(v => v != action.payload._id)
+                    veges: state.veges.filter(v => v._id != action.payload._id)
                 }
             }
         case "ADD_VEGE":

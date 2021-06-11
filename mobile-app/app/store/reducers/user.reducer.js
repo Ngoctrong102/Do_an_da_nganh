@@ -25,6 +25,13 @@ const userReducer = (state = initState, action) => {
                     codeMicrobit: action.payload.user.codeMicrobit
                 }
             }
+        case 'UPDATE_QR_CODE':
+            {
+                return {
+                    ...state,
+                    ...action.payload,
+                }
+            }
         default:
             return state
     }
