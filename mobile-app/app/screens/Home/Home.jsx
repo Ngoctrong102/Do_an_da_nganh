@@ -97,7 +97,10 @@ const HomeScreen = ({
                   <Button
                     title="Thêm rau"
                     onPress={() => {
-                      navigation.navigate("Settings", { screen: "AddVege" });
+                      navigation.navigate("Settings", {
+                        screen: "AddVege",
+                        initial: false,
+                      });
                     }}
                   />
                 </View>
@@ -140,7 +143,10 @@ const HomeScreen = ({
               <Button
                 title="Thiết lập"
                 onPress={() => {
-                  navigation.navigate("Settings", { screen: "QRCode" });
+                  navigation.navigate("Settings", {
+                    screen: "QRCode",
+                    initial: false,
+                  });
                 }}
               />
             </View>

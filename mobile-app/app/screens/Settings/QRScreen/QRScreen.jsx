@@ -33,7 +33,7 @@ function QRScreen({ navigation, route, setToken, updateQRCode }) {
           {
             text: "Oke",
             onPress: () => {
-              navigation.goBack();
+              navigation.navigate("menu");
             },
           },
         ],
