@@ -16,10 +16,10 @@ const HomeScreen = ({
   setToken,
   veges,
   getVeges,
-  current,
   changeVege,
   getGardentInfo,
   gardent,
+  code,
 }) => {
   var options = veges.map((v) => {
     return { item: v.name, id: v._id };
@@ -32,18 +32,12 @@ const HomeScreen = ({
     }
     getGardentInfo();
   }, []);
-  // useEffect(() => {
-  //   var c = options.find((o) => o.id == current) || {};
-  //   console.log(c);
-  //   setSelectedTeam(c);
-  // }, [current]);
   const handleChange = (selection) => {
     // setSelectedTeam(selection);
     changeVege(selection.id);
     console.log(selection);
   };
   return (
-    // <ScrollView nestedScrollEnabled={true}>
     <View style={{ flex: 1 }}>
       <Header />
       <View paddingHorizontal={10}>
@@ -51,7 +45,7 @@ const HomeScreen = ({
           label=""
           inputPlaceholder="Tìm loại rau"
           options={options}
-          value={options.find((o) => o.id == current) || {}}
+          value={options.find((o) => o.id == gardent.current) || {}}
           onChange={handleChange}
           containerStyle={{
             borderRadius: 5,
@@ -85,34 +79,82 @@ const HomeScreen = ({
           }}
           optionsLabelStyle={{ fontSize: 12 }}
         />
-        <View style={{ marginVertical: 20 }}>
-          <Image
-            source={require("./../../../assets/plant-default.png")}
-            style={{
-              width: "100%",
-              height: 200,
-              resizeMode: "contain",
-            }}
-          />
-        </View>
-        <View style={{ flexDirection: "row", marginVertical: 5 }}>
-          <Light on={gardent.light} />
-          <Motor on={gardent.motor} />
-        </View>
-        <View style={{ flexDirection: "row", marginVertical: 5 }}>
-          <Temp temp={gardent.temp} />
-          <Humidity humidity={gardent.humidity} />
-        </View>
+
+        {code ? (
+          <>
+            {veges.length == 0 ? (
+              <>
+                <View
+                  style={{
+                    height: 300,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Text style={{ marginBottom: 10 }}>
+                    Bạn chưa có loại rau nào
+                  </Text>
+                  <Button
+                    title="Thêm rau"
+                    onPress={() => {
+                      navigation.navigate("Settings", { screen: "AddVege" });
+                    }}
+                  />
+                </View>
+              </>
+            ) : (
+              <>
+                <View style={{ marginVertical: 20 }}>
+                  <Image
+                    source={require("./../../../assets/plant-default.png")}
+                    style={{
+                      width: "100%",
+                      height: 200,
+                      resizeMode: "contain",
+                    }}
+                  />
+                </View>
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                  <Light on={gardent.light} />
+                  <Motor on={gardent.motor} />
+                </View>
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                  <Temp temp={gardent.temp} />
+                  <Humidity humidity={gardent.humidity} />
+                </View>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <View
+              style={{
+                height: 300,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text style={{ marginBottom: 10 }}>
+                Bạn chưa thiết lập vườn rau
+              </Text>
+              <Button
+                title="Thiết lập"
+                onPress={() => {
+                  navigation.navigate("Settings", { screen: "QRCode" });
+                }}
+              />
+            </View>
+          </>
+        )}
       </View>
     </View>
-    // </ScrollView>
   );
 };
 
 function mapStateToProp(state) {
   return {
     veges: state.veges.veges,
-    current: state.gardent.current,
+    code: state.user.codeMicrobit,
     gardent: state.gardent,
   };
 }

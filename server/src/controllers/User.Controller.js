@@ -76,8 +76,18 @@ module.exports = {
     addQR: async(req, res) => {
         try {
             var newGardent = await GardentService.newGardent(req.user._id, req.body.QR);
-            var respone = await UserService.addQR(req.user._id, req.body.QR, newGardent._id);
-            res.json(respone);
+            var user = await UserService.addQR(req.user._id, req.body.QR, newGardent._id);
+            var userData = {
+                _id: user._id,
+                username: user.username,
+                avatar: user.avatar,
+                codeMicrobit: user.codeMicrobit,
+                current: user.current
+            };
+            res.json({
+                status: 1,
+                token: jwt.sign(userData, SECRET_CODE)
+            });
         } catch (err) {
             console.log(err)
         }

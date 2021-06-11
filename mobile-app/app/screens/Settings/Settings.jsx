@@ -71,7 +71,12 @@ const Settings = ({ setToken }) => {
           </View>
         )}
       </Stack.Screen>
-      <Stack.Screen name="QRCode" component={QRScreen} />
+      <Stack.Screen
+        name="QRCode"
+        component={({ navigation, route }) => (
+          <QRScreen navigation={navigation} route={route} setToken={setToken} />
+        )}
+      />
       <Stack.Screen name="Vegetables" component={Vegetables} />
       <Stack.Screen
         name="AddVege"

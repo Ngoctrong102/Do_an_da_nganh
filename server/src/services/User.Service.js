@@ -18,8 +18,11 @@ class UserService {
         else return null;
     }
     async addQR(userID, QR, gardent) {
-        var res = await User.updateOne({ _id: userID }, { codeMicrobit: QR, gardent })
-        return res;
+        var user = await User.findOne({ _id: userID });
+        user.codeMicrobit = QR;
+        user.gardent = gardent;
+        user.save();
+        return user;
     }
 }
 

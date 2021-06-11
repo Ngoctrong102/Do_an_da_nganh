@@ -15,6 +15,7 @@ class GardentService {
     }
     async changeVege(userID, code, vegeID) {
         var gardent = await Gardent.findOne({ owner: userID, code });
+        console.log(userID, code)
         gardent.current = vegeID;
 
         var vege = await Vegetable.findOne({ _id: vegeID });

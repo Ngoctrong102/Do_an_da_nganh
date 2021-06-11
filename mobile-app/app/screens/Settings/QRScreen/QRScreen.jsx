@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, Alert } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import User from "../../../services/User.service";
 
-export default function App() {
+export default function QRScreen({ navigation, route, setToken }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -17,10 +18,25 @@ export default function App() {
   const handleBarCodeScanned = async ({ type, data }) => {
     setScanned(true);
 
-    console.log(data);
     var respone = await User.addQR(data);
-    alert(`QR code có nội dung: ${data}`);
-    console.log(respone);
+    if (respone.status == 1) {
+      await AsyncStorage.setItem("token", respone.token);
+      setToken(respone.token);
+      Alert.alert(
+        "Thành công",
+        "Thêm vườn rau thành công",
+        [
+          {
+            text: "Oke",
+            onPress: () => {
+              navigation.goBack();
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+      navigation.back();
+    }
   };
 
   if (hasPermission === null) {
