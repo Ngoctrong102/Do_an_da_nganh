@@ -43,25 +43,21 @@ client.on("messageReceived", (message) => {
         switch (message.destinationName) {
             case "light":
                 {
-                    // console.log(message.payloadString)
                     store.dispatch(controlGardent({ light: data.on }))
                     break;
                 }
             case "motor":
                 {
-                    // console.log(message.payloadString)
                     store.dispatch(controlGardent({ motor: data.on }))
                     break;
                 }
             case "temp":
                 {
-                    // console.log(message.payloadString)
                     store.dispatch(controlGardent({ temp: data.temp }))
                     break;
                 }
             case "humidity":
                 {
-                    // console.log(message.payloadString)
                     store.dispatch(controlGardent({ humidity: data.humidity }))
                     break;
                 }

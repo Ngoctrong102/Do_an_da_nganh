@@ -21,9 +21,6 @@ export default function App() {
       token = await AsyncStorage.getItem("token");
       setToken(token);
     })();
-    return () => {
-      console.log("end");
-    };
   }, []);
 
   return (

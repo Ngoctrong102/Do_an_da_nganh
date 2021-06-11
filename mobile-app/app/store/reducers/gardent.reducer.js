@@ -13,6 +13,10 @@ const gardentReducer = (state = initState, action) => {
             {
                 return {...action.payload.gardentInfo, hasGardent: true }
             }
+        case "CHANGE_VEGE":
+            {
+                return {...state, current: action.payload.id }
+            }
         case 'CONTROL':
             return {
                 ...state,

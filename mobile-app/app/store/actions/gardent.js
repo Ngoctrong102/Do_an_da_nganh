@@ -11,11 +11,12 @@ export const getGardentInfo = () => async dispatch => {
 }
 
 export const controlGardent = (controlObject) => {
-        return { type: "CONTROL", payload: controlObject }
-    }
-    // export const controlMotor = (status) => {
-    //     return { type: "CONTROL", payload: { motor: status } }
-    // }
+    return { type: "CONTROL", payload: controlObject }
+}
+
+// export const controlMotor = (status) => {
+//     return { type: "CONTROL", payload: { motor: status } }
+// }
 
 
 export const changeVege = id => async dispatch => {

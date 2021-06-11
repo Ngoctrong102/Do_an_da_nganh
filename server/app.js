@@ -39,7 +39,8 @@ io.use(function(socket, next) {
     }
 });
 
-require('./src/socketio/listeners')(io);
+// require('./src/socketio/listeners')(io);
+require('./src/schedule');
 
 
 const PORT = process.env.PORT;
@@ -61,12 +62,6 @@ app.use('/vegetables', require('./src/routes/vegetable.router'));
 app.use('/controller', require('./src/routes/controller.router'))
 app.use('/gardent', require('./src/routes/gardent.router'))
 
-// console.log(client);
-// var client = require('./src/MQTT');
-// app.post('/light/:id', (req, res) => {
-//     console.log(req.body);
-//     client.publish('light', JSON.stringify(req.body))
-// })
 
 server.listen(PORT, () => {
     console.log('Listening at port ' + PORT);
