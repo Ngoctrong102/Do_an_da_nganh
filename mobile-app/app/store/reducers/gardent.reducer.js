@@ -22,6 +22,10 @@ const gardentReducer = (state = initState, action) => {
                 ...state,
                 ...action.payload
             }
+        case "LOGOUT":
+            {
+                return initState;
+            }
         default:
             return state
     }

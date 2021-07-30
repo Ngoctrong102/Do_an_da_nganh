@@ -22,7 +22,7 @@ class GardentService {
 
         var now = new Date();
         var hour = now.getHours();
-        gardent.light = (hour - vege.light.from) * (vege.light.to - hour) * (vege.light.to - vege.light.from) > 0;
+        gardent.light = (hour - vege.light.from) * (vege.light.to - hour) * (vege.light.to - vege.light.from) >= 0;
         gardent.motor = vege.motor.includes(hour);
 
         Mqtt.publish('light', JSON.stringify({ code, on: gardent.light }))

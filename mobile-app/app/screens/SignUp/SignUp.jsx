@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ToastAndroid,
+} from "react-native";
 import UserService from "../../services/User.service";
 
 import style from "./SignUp.style";
@@ -12,6 +19,8 @@ const SignUpScreen = ({ navigation }) => {
   const handleSignUp = async () => {
     var respone = await UserService.signUp(username, password, repass);
     console.log(respone);
+    ToastAndroid.show("Sign up successfully", ToastAndroid.SHORT);
+    navigation.navigate("SignIn");
   };
   return (
     <View style={style.container}>

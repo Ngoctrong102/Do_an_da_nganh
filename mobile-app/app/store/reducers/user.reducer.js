@@ -32,6 +32,10 @@ const userReducer = (state = initState, action) => {
                     ...action.payload,
                 }
             }
+        case "LOGOUT":
+            {
+                return initState;
+            }
         default:
             return state
     }

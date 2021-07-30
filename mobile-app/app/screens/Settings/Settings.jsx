@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "../../components/Home/Header";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { connect } from "react-redux";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import Menu from "../../components/Setting/menu/Menu";
@@ -11,7 +12,8 @@ import AddVegeScreen from "./Vegetables/AddVege/AddVege";
 import EachVege from "./Vegetables/Detail/VegeDetail";
 import UpdateVege from "./Vegetables/UpdateVege/UpdateVege";
 
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { logout } from "../../store/actions/user";
+
 import { faQrcode, faListUl, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 var Stack = createStackNavigator();
@@ -34,7 +36,7 @@ var data = [
   },
 ];
 
-const Settings = ({ setToken }) => {
+const Settings = ({ setToken, logout }) => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -63,6 +65,7 @@ const Settings = ({ setToken }) => {
                 onPress={async () => {
                   await AsyncStorage.removeItem("token");
                   setToken("");
+                  logout();
                 }}
               >
                 <Text>Log out</Text>
@@ -96,4 +99,11 @@ const Settings = ({ setToken }) => {
   );
 };
 
-export default Settings;
+function mapDispatcherToProp(dispatch) {
+  return {
+    logout: () => {
+      dispatch(logout());
+    },
+  };
+}
+export default connect(null, mapDispatcherToProp)(Settings);

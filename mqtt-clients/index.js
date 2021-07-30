@@ -1,6 +1,9 @@
 var mqtt = require('mqtt')
 var client = mqtt.connect('ws://localhost:9000/')
 
+
+var CODE = "dadn"
+
 client.on('connect', function() {
     console.log('connected');
     client.subscribe('light', function(err) {
@@ -24,13 +27,13 @@ client.on('connect', function() {
         }
     })
     setInterval(() => {
-        client.publish('temp', JSON.stringify({ code: 'hello', temp: parseInt(Math.random() * 10 - 5 + 25) }))
-    }, 5000)
+        client.publish('temp', JSON.stringify({ code: CODE, temp: parseInt(Math.random() * 20 - 10 + 25) }))
+    }, 10000)
     setInterval(() => {
-        client.publish('humidity', JSON.stringify({ code: 'hello', humidity: parseInt(Math.random() * 10 - 5 + 25) }))
-    }, 5000)
+        client.publish('humidity', JSON.stringify({ code: CODE, humidity: parseInt(Math.random() * 20 - 10 + 25) }))
+    }, 10000)
 })
-var code = "hello";
+var code = CODE;
 client.on('message', function(topic, message) {
     // message is Buffer
     var data = JSON.parse(message);

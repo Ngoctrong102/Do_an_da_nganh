@@ -22,3 +22,10 @@ export const updateQRCode = codeMicrobit => {
         }
     }
 }
+
+export const logout = () => {
+    return {
+        type: 'LOGOUT',
+        payload: {}
+    }
+}

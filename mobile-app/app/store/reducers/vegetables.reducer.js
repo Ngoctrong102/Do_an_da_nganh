@@ -40,6 +40,10 @@ const vegetablesReducer = (state = initState, action) => {
                     veges: newVeges
                 }
             }
+        case "LOGOUT":
+            {
+                return { veges: [] }
+            }
         default:
             return state
     }
